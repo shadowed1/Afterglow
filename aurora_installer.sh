@@ -92,7 +92,7 @@ download_and_extract()
     echo "${RESET}${CYAN}${FILE} extracted.${RESET}"
     export LD_LIBRARY_PATH="$target_dir/usr/lib:$LD_LIBRARY_PATH"
     export FLATPAK_USER_DIR="$HOME/.local/share/flatpak"
-   # sleep 1
+    sleep 1
 }
 
 URL="https://archlinux.org/packages/extra/x86_64/flatpak/download"
@@ -126,10 +126,6 @@ URL="https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal/download"
 download_and_extract "$URL" "$HOME/opt/flatpak-deps"
 
 URL="https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-gtk/download"
-download_and_extract "$URL" "$HOME/opt/flatpak-deps"
-
-# Futile attempt 
-URL="https://archlinux.org/packages/extra/x86_64/fuse3/download"
 download_and_extract "$URL" "$HOME/opt/flatpak-deps"
 
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/flatpak.logic -o ~/opt/flatpak.logic

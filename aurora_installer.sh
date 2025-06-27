@@ -136,7 +136,8 @@ curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.logic -
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/aurora -o ~/opt/aurora/aurora
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/starmman -o ~/opt/starman/starman
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.env -o ~/opt/.flatpak.env
-chmod +x ~/opt/bin/aurora
+chmod +x ~/opt/aurora/aurora
+chmod +x ~/opt/starman/starman
 
 
 export LD_LIBRARY_PATH="$HOME/opt/flatpak-deps/usr/lib:$LD_LIBRARY_PATH"
@@ -173,7 +174,7 @@ sleep 3
 echo ""
 
 
-/bin/bash ~/opt/bin/aurora help
+/bin/bash ~/opt/aurora/aurora help
 
 sleep 3
 echo "${RESET}${MAGENTA}"

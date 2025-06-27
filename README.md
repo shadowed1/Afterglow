@@ -136,6 +136,7 @@ When running Brave:
 0.01: `Release` <br>
 0.02: `Removed .bashrc file and added append capability. Added check to make sure not to install anywhere but Borealis.
 Added uninstall and reinstall commands. Thanks to Saragon for the suggestions and teachimg me more about .bashrc.` <br>
+0.03: `Now using .borealisrc instead of .bashrc for better compatibility.` 
 
 
 ### Acknowledgments

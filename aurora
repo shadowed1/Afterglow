@@ -10,8 +10,8 @@ RESET=$(tput sgr0)
 DISPLAY_SCALING=""
 CURSOR_SIZE=""
 
-if [ -f "$HOME/opt/flatpak.env" ]; then
-    . "$HOME/opt/flatpak.env"
+if [ -f "$HOME/opt/.flatpak.env" ]; then
+    . "$HOME/opt/.flatpak.env"
 fi
 
 set_display_scaling() {
@@ -127,8 +127,9 @@ aurora_uninstall() {
                 return 1
             fi
 
-                sed -i '/flatpak\.env/d' "$HOME/.bashrc"
-                sed -i '/flatpak\.logic/d' "$HOME/.bashrc"
+                sed -i '/\.flatpak\.env/d' "$HOME/.bashrc"
+                sed -i '/\.flatpak\.logic/d' "$HOME/.bashrc"
+
                 
 
             for DIR in "$HOME/opt" "$HOME/.local/share/flatpak" "$HOME/.xdg-runtime-dir"; do
@@ -146,8 +147,8 @@ aurora_uninstall() {
                 echo "${CYAN}Removed Aurora Flatpak function from .bashrc${RESET}"
             fi
 
-            sed -i '/flatpak\.env/d' "$HOME/.bashrc"
-            sed -i '/flatpak\.logic/d' "$HOME/.bashrc"
+            sed -i '/\.flatpak\.env/d' "$HOME/.bashrc"
+            sed -i '/\.flatpak\.logic/d' "$HOME/.bashrc"
             
             echo "${CYAN}${BOLD}Full Aurora uninstall complete. All Flatpak dependencies, apps, and data removed. ~/.bashrc entries removed. ${RESET}"
             ;;

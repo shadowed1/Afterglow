@@ -44,6 +44,7 @@ sleep 3
  mkdir -p ~/opt/flatpak
  mkdir -p ~/opt/flatpak-deps
  mkdir -p ~/opt/bin
+ mkdir -p ~/opt/spaceman
  
 export XDG_RUNTIME_DIR="$HOME/.xdg-runtime-dir"
 mkdir -p "$XDG_RUNTIME_DIR"
@@ -126,6 +127,9 @@ URL="https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal/download"
 download_and_extract "$URL" "$HOME/opt/flatpak-deps"
 
 URL="https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-gtk/download"
+download_and_extract "$URL" "$HOME/opt/flatpak-deps"
+
+URL="https://archlinux.org/packages/extra/x86_64/xorg-xrdb/download"
 download_and_extract "$URL" "$HOME/opt/flatpak-deps"
 
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/flatpak.logic -o ~/opt/flatpak.logic

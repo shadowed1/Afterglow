@@ -43,7 +43,7 @@ sleep 3
 
  mkdir -p ~/opt/flatpak
  mkdir -p ~/opt/flatpak-deps
- mkdir -p ~/opt/bin
+ mkdir -p ~/opt/aurora
  mkdir -p ~/opt/spaceman
  
 export XDG_RUNTIME_DIR="$HOME/.xdg-runtime-dir"
@@ -130,11 +130,12 @@ URL="https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-gtk/download
 download_and_extract "$URL" "$HOME/opt/flatpak-deps"
 
 URL="https://archlinux.org/packages/extra/x86_64/xorg-xrdb/download"
-download_and_extract "$URL" "$HOME/opt/flatpak-deps"
+download_and_extract "$URL" "$HOME/opt/"
 
-curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/flatpak.logic -o ~/opt/flatpak.logic
-curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/aurora -o ~/opt/bin/aurora
-curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/flatpak.env -o ~/opt/flatpak.env
+curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.logic -o ~/opt/.flatpak.logic
+curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/aurora -o ~/opt/aurora
+curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/spaceman -o ~/opt/spaceman
+curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.env -o ~/opt/.flatpak.env
 chmod +x ~/opt/bin/aurora
 
 
@@ -142,9 +143,9 @@ export LD_LIBRARY_PATH="$HOME/opt/flatpak-deps/usr/lib:$LD_LIBRARY_PATH"
 
 if file "$XDG_RUNTIME_DIR/dbus-session" | grep -q socket; then
   export DBUS_SESSION_BUS_ADDRESS=$(grep -E '^unix:' "$XDG_RUNTIME_DIR/dbus-session.address")
-  grep -v '^export DBUS_SESSION_BUS_ADDRESS=' "$HOME/opt/flatpak.env" > "$HOME/opt/flatpak.env.tmp"
-  echo "export DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\"" >> "$HOME/opt/flatpak.env.tmp"
-  mv "$HOME/opt/flatpak.env.tmp" "$HOME/opt/flatpak.env"
+  grep -v '^export DBUS_SESSION_BUS_ADDRESS=' "$HOME/opt/.flatpak.env" > "$HOME/opt/.flatpak.env.tmp"
+  echo "export DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\"" >> "$HOME/opt/.flatpak.env.tmp"
+  mv "$HOME/opt/.flatpak.env.tmp" "$HOME/opt/.flatpak.env"
 else
   echo "D-Bus socket not found."
 fi
@@ -152,8 +153,8 @@ fi
 if [ ! -f "$HOME/.bashrc" ]; then
   touch "$HOME/.bashrc"
 fi
-if ! grep -q 'flatpak.env' "$HOME/.bashrc"; then
-  echo '[ -f "$HOME/opt/flatpak.env" ] && . "$HOME/opt/flatpak.env"' >> "$HOME/.bashrc"
+if ! grep -q '.flatpak.env' "$HOME/.bashrc"; then
+  echo '[ -f "$HOME/opt/.flatpak.env" ] && . "$HOME/opt/.flatpak.env"' >> "$HOME/.bashrc"
 fi
 
 
@@ -162,8 +163,8 @@ if [ ! -f "$HOME/opt/flatpak-deps/usr/lib/libostree-1.so.1" ]; then
   exit 1
 fi
 
-if ! grep -Fxq '[ -f "$HOME/opt/flatpak.logic" ] && . "$HOME/opt/flatpak.logic"' "$HOME/.bashrc"; then
-  echo '[ -f "$HOME/opt/flatpak.logic" ] && . "$HOME/opt/flatpak.logic"' >> "$HOME/.bashrc"
+if ! grep -Fxq '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' "$HOME/.bashrc"; then
+  echo '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' >> "$HOME/.bashrc"
 fi
 
 "$HOME/opt/flatpak/usr/bin/flatpak" --version

@@ -166,15 +166,7 @@ fi
 sleep 3
 
 echo ""
-echo "${BLUE}Aurora is downloading Inkscape for shortcut support..."
-echo ""
-echo "flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-echo "flatpak --user update --appstream"
-echo "flatpak install org.inkscape.Inkscape"
-flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak --user update --appstream
-flatpak install org.inkscape.Inkscape
-sleep 1
+
 
 /bin/bash ~/opt/bin/aurora help
 

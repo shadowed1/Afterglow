@@ -22,7 +22,7 @@
 - Copy Paste in borealis shell: <br>
 `bash <(curl -s "https://raw.githubusercontent.com/shadowed1/Aurora/beta/aurora_installer.sh?$(date +%s)")` <br>
 
-*Do not install Aurora anywhere else but Borealis; it won't work elsewhere.*
+*Aurora needs Borealis; it won't work anywhere else.*
 
 <br>
 <br>

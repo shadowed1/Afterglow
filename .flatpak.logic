@@ -50,10 +50,10 @@ flatpak --user update --appstream
 
 echo "${RESET}${CYAN}Flatpak ready!${RESET}"
 
-# Add Flatpak --user function to ~/.bashrc if missing:
+# Add Flatpak --user function to ~/.borealisrc if missing:
 MARKER="# Flatpak --user logic"
-if ! grep -q "$MARKER" "$HOME/.bashrc"; then
-cat << 'EOF' >> "$HOME/.bashrc"
+if ! grep -q "$MARKER" "$HOME/.borealisrc"; then
+cat << 'EOF' >> "$HOME/.borealisrc"
 # Flatpak --user logic
 flatpak() {
   case "$1" in
@@ -67,10 +67,10 @@ flatpak() {
 }
 EOF
 echo ""
-echo "${BOLD}${CYAN}Aurora has successfully finished setting up Flatpak! Reinitializing .bashrc to enable --user shortcut...${RESET}"
+echo "${BOLD}${CYAN}Aurora has successfully finished setting up Flatpak! Reinitializing .borealisrc to enable --user shortcut...${RESET}"
 sleep 2
 echo ""
-source ~/.bashrc
+source ~/.borealisrc
 sleep 1
 echo "${BLUE}Aurora is downloading Inkscape for shortcut support..."
 echo ""

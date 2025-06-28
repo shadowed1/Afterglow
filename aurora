@@ -144,7 +144,7 @@ aurora_uninstall() {
             if grep -q "# Flatpak --user logic" "$HOME/.borealisrc"; then
                 # Delete from marker to the closing "}" of the function
                 sed -i '/# Flatpak --user logic/,/^}/d' "$HOME/.borealisrc"
-                echo "${CYAN}Removed Aurora Flatpak function from .borealisrc${RESET}"
+                echo "${CYAN}Removed Flatpak function from .borealisrc${RESET}"
             fi
 
             sed -i '/\.flatpak\.env/d' "$HOME/.borealisrc"

@@ -57,33 +57,34 @@ set_cursor_scaling() {
     export XCURSOR_SIZE=$CURSOR_SIZE
     echo "${GREEN}Cursor size set to $CURSOR_SIZE${RESET}" >&2
 }
+shortcut() {
 
-if ! flatpak info org.inkscape.Inkscape &>/dev/null; then
-    echo "${BLUE}Inkscape is required. Installing...${RESET}" >&2
-    flatpak install flathub org.inkscape.Inkscape
-    if [[ $? -ne 0 ]]; then
-        echo "${RED}Failed to install Inkscape.${RESET}" >&2
-        exit 1
+    if ! flatpak info org.inkscape.Inkscape &>/dev/null; then
+        echo "${BLUE}Inkscape is required. Installing...${RESET}" >&2
+        flatpak install flathub org.inkscape.Inkscape
+        if [[ $? -ne 0 ]]; then
+            echo "${RED}Failed to install Inkscape.${RESET}" >&2
+            exit 1
+        fi
     fi
-fi
-
-flatpak list --columns=application | tail -n +1 | while read -r APPID; do
-    SVG_PATH="$HOME/.local/share/flatpak/app/$APPID/current/active/export/share/icons/hicolor/scalable/apps/$APPID.svg"
-
-    # Skip if no icon
-    if [ ! -f "$SVG_PATH" ]; then
-        echo "${RED}Missing SVG icon for $APPID${RESET}"
-        continue
-    fi
-
-    OUTDIR="$ICON_OUTPUT_BASE/${ICON_SIZE}x${ICON_SIZE}/apps"
-    mkdir -p "$OUTDIR"
-    OUTFILE="$OUTDIR/$APPID.png"
-
-    echo "${GREEN}Exporting $APPID to ${ICON_SIZE}x${ICON_SIZE}...${RESET}"
-    flatpak run org.inkscape.Inkscape --export-type="png" -w "$ICON_SIZE" -o "$OUTFILE" "$SVG_PATH"
-done
-
+    
+    flatpak --user list --columns=application | tail -n +1 | while read -r APPID; do
+        SVG_PATH="$HOME/.local/share/flatpak/app/$APPID/current/active/export/share/icons/hicolor/scalable/apps/$APPID.svg"
+    
+        # Skip if no icon
+        if [ ! -f "$SVG_PATH" ]; then
+            echo "${RED}Missing SVG icon for $APPID${RESET}"
+            continue
+        fi
+    
+        OUTDIR="$ICON_OUTPUT_BASE/${ICON_SIZE}x${ICON_SIZE}/apps"
+        mkdir -p "$OUTDIR"
+        OUTFILE="$OUTDIR/$APPID.png"
+    
+        echo "${GREEN}Exporting $APPID to ${ICON_SIZE}x${ICON_SIZE}...${RESET}"
+        flatpak run org.inkscape.Inkscape --export-type="png" -w "$ICON_SIZE" -o "$OUTFILE" "$SVG_PATH"
+    done
+}
 
 show_help() {
     echo "${MAGENTA}${BOLD}"
@@ -200,6 +201,8 @@ case "$1" in
     --h|-h|h|--help|-help|help)
         show_help
         ;;
+    shortcut)
+        shortcut
     ""|status)
         if [[ -z "$ELECTRON_FORCE_DEVICE_SCALE_FACTOR" && -z "$XCURSOR_SIZE" ]]; then
             echo "${CYAN}ELECTRON_FORCE_DEVICE_SCALE_FACTOR and XCURSOR_SIZE remain default.${RESET}"

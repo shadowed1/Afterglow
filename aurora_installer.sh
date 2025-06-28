@@ -133,11 +133,11 @@ URL="https://archlinux.org/packages/extra/x86_64/xorg-xrdb/download"
 download_and_extract "$URL" "$HOME/opt/"
 
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.logic -o ~/opt/.flatpak.logic
-curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/aurora -o ~/opt/aurora/aurora
-curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/starmman -o ~/opt/starman/starman
+curl -L https://raw.githubusercontent.com/shadowed1/Aurora/main/aurora -o ~/opt/bin/aurora
+curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/starmman -o ~/opt/bin/starman
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.env -o ~/opt/.flatpak.env
-chmod +x ~/opt/aurora/aurora
-chmod +x ~/opt/starman/starman
+chmod +x ~/opt/bin/aurora
+chmod +x ~/opt/bin/starman
 
 
 export LD_LIBRARY_PATH="$HOME/opt/flatpak-deps/usr/lib:$LD_LIBRARY_PATH"
@@ -174,7 +174,7 @@ sleep 3
 echo ""
 
 
-/bin/bash ~/opt/aurora/aurora help
+/bin/bash ~/opt/bin/aurora help
 
 sleep 3
 echo "${RESET}${MAGENTA}"

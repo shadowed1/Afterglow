@@ -66,11 +66,6 @@ shortcut() {
         }
     fi
 
-    if ! command -v convert &>/dev/null; then
-        echo "${BLUE}ImageMagick (convert) is required. Please install it for full image conversion support.${RESET}" >&2
-        return 1
-    fi
-
     flatpak --user list --columns=application | tail -n +1 | while read -r APPID; do
         BASE_PATH="$HOME/.local/share/flatpak/app/$APPID/current/active/export/share/icons/hicolor"
         ICON=$(find "$BASE_PATH" -mindepth 3 -maxdepth 3 \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.svg" \) \
@@ -96,14 +91,11 @@ shortcut() {
         EXT_LOWER=$(echo "$EXT" | tr 'A-Z' 'a-z')
 
         case "$EXT_LOWER" in
-            png)
+            png|jpg|jpeg)
                 cp "$ICON" "$OUTFILE"
                 ;;
             svg)
                 flatpak --user run org.inkscape.Inkscape --export-type="png" -w "$ICON_SIZE" -o "$OUTFILE" "$ICON"
-                ;;
-            jpg|jpeg)
-                convert "$ICON" -resize "${ICON_SIZE}x${ICON_SIZE}" "$OUTFILE"
                 ;;
             *)
                 echo "${YELLOW}Unknown format: $ICON${RESET}"
@@ -114,7 +106,6 @@ shortcut() {
         echo "${CYAN}Icon saved to $OUTFILE${RESET}"
     done
 }
-
 
 show_help() {
     echo "${MAGENTA}${BOLD}"

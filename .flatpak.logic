@@ -57,7 +57,6 @@ flatpak() {
       command flatpak "$@"
       ;;
     install)
-      # Prevent installing Flatpak Steam in Borealis
       if [[ "$*" == *"com.valvesoftware.Steam"* ]]; then
         echo "${RED}Installing com.valvesoftware.Steam is blocked to protect your Steam install.${RESET}"
         return 1

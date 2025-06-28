@@ -74,6 +74,6 @@ source ~/.bashrc
 sleep 1
 echo "${BLUE}Aurora is downloading Inkscape for shortcut support..."
 echo ""
-echo "flatpak install org.inkscape.Inkscape"
-flatpak install org.inkscape.Inkscape
+echo "flatpak --noninteractive install org.inkscape.Inkscape ${RESET}"
+flatpak --noninteractive install org.inkscape.Inkscape
 fi

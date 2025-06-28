@@ -151,11 +151,11 @@ else
   echo "D-Bus socket not found."
 fi
 
-if [ ! -f "$HOME/.borealisrc" ]; then
-  touch "$HOME/.borealisrc"
+if [ ! -f "$HOME/.bashrc" ]; then
+  touch "$HOME/.bashrc"
 fi
-if ! grep -q '.flatpak.env' "$HOME/.borealisrc"; then
-  echo '[ -f "$HOME/opt/.flatpak.env" ] && . "$HOME/opt/.flatpak.env"' >> "$HOME/.borealisrc"
+if ! grep -q '.flatpak.env' "$HOME/.bashrc"; then
+  echo '[ -f "$HOME/opt/.flatpak.env" ] && . "$HOME/opt/.flatpak.env"' >> "$HOME/.bashrc"
 fi
 
 
@@ -164,8 +164,8 @@ if [ ! -f "$HOME/opt/flatpak-deps/usr/lib/libostree-1.so.1" ]; then
   exit 1
 fi
 
-if ! grep -Fxq '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' "$HOME/.borealisrc"; then
-  echo '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' >> "$HOME/.borealisrc"
+if ! grep -Fxq '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' "$HOME/.bashrc"; then
+  echo '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' >> "$HOME/.bashrc"
 fi
 
 "$HOME/opt/flatpak/usr/bin/flatpak" --version

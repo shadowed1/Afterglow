@@ -151,7 +151,7 @@ if file "$XDG_RUNTIME_DIR/dbus-session" | grep -q socket; then
   echo "export DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\"" >> "$HOME/opt/.flatpak.env.tmp"
   mv "$HOME/opt/.flatpak.env.tmp" "$HOME/opt/.flatpak.env"
 else
-  echo "D-Bus socket not found."
+  echo "dbus socket not found."
 fi
 
 if [ ! -f "$HOME/.bashrc" ]; then

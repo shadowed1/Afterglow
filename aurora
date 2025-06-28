@@ -71,7 +71,6 @@ shortcut() {
     flatpak --user list --columns=application | tail -n +1 | while read -r APPID; do
         SVG_PATH="$HOME/.local/share/flatpak/app/$APPID/current/active/export/share/icons/hicolor/scalable/apps/$APPID.svg"
     
-        # Skip if no icon
         if [ ! -f "$SVG_PATH" ]; then
             echo "${RED}Missing SVG icon for $APPID${RESET}"
             continue

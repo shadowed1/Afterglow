@@ -144,6 +144,7 @@ curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.logic -
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/aurora -o ~/opt/bin/aurora
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/starmman -o ~/opt/bin/starman
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.env -o ~/opt/.flatpak.env
+
 chmod +x ~/opt/bin/aurora
 chmod +x ~/opt/bin/starman
 

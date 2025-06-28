@@ -59,9 +59,9 @@ set_cursor_scaling() {
 }
 shortcut() {
 
-    if ! flatpak info org.inkscape.Inkscape &>/dev/null; then
+    if ! flatpak --user info org.inkscape.Inkscape &>/dev/null; then
         echo "${BLUE}Inkscape is required. Installing...${RESET}" >&2
-        flatpak install flathub org.inkscape.Inkscape
+        flatpak --user install flathub org.inkscape.Inkscape
         if [[ $? -ne 0 ]]; then
             echo "${RED}Failed to install Inkscape.${RESET}" >&2
             exit 1
@@ -82,7 +82,7 @@ shortcut() {
         OUTFILE="$OUTDIR/$APPID.png"
     
         echo "${GREEN}Exporting $APPID to ${ICON_SIZE}x${ICON_SIZE}...${RESET}"
-        flatpak run org.inkscape.Inkscape --export-type="png" -w "$ICON_SIZE" -o "$OUTFILE" "$SVG_PATH"
+        flatpak --user run org.inkscape.Inkscape --export-type="png" -w "$ICON_SIZE" -o "$OUTFILE" "$SVG_PATH"
     done
 }
 

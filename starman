@@ -47,15 +47,40 @@ show_help() {
     echo "${RESET}"
 }
 
+zenity_launcher() {
+    local CHOICE
+    CHOICE=$(zenity --list --title="Aurora Desktop" \
+      --width=400 --height=300 \
+      --column="Action" --column="Description" \
+      "Open File" "Select a file to open with file picker" \
+      "Inkscape" "Launch Inkscape via Flatpak" \
+      "Exit" "Close this menu")
+
+    case "$CHOICE" in
+      "Open File")
+        zenity --file-selection --title="Pick a file"
+        ;;
+      "Inkscape")
+        flatpak run org.inkscape.Inkscape &
+        ;;
+      "Exit" | *)
+        exit 0
+        ;;
+    esac
+}
+
+# MAIN LOGIC
+
 case "$1" in
     starman)
-        starman
+        shift
+        starman "$@"
         ;;
     --h|-h|help)
         show_help
         ;;
     ""|status)
-        show_help
+        zenity_launcher
         ;;
     *)
         echo "${RED}Unknown command '$1'${RESET}"

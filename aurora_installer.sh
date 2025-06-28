@@ -129,7 +129,16 @@ URL="https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-gtk/download
 download_and_extract "$URL" "$HOME/opt/flatpak-deps"
 
 URL="https://archlinux.org/packages/extra/x86_64/xorg-xrdb/download"
-download_and_extract "$URL" "$HOME/opt/"
+download_and_extract "$URL" "$HOME/opt/bin"
+
+# We shouldn't be missing unzip!
+URL="https://archlinux.org/packages/extra/x86_64/unzip/download"
+download_and_extract "$URL" "$HOME/opt/bin"
+
+# Fastfetch
+URL="https://archlinux.org/packages/extra/x86_64/fastfetch/download"
+download_and_extract "$URL" "$HOME/opt/bin"
+
 
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.logic -o ~/opt/.flatpak.logic
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/main/aurora -o ~/opt/bin/aurora

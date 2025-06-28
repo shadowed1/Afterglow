@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# Colors
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 YELLOW=$(tput setaf 3)
@@ -10,7 +8,6 @@ CYAN=$(tput setaf 6)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 
-# Flatpak ENV (optional)
 if [ -f "$HOME/opt/.flatpak.env" ]; then
     . "$HOME/opt/.flatpak.env"
 fi
@@ -26,7 +23,6 @@ starman() {
 
     local FILE="$HOME/$(basename "$URL")"
     local EXPORT_PATH="${STARMAN_EXPORT_PATH:-$HOME/opt/bin}"
-
     echo "${YELLOW}Downloading to: $FILE${RESET}"
     curl -L "$URL" -o "$FILE"
 
@@ -51,7 +47,6 @@ show_help() {
     echo "${RESET}"
 }
 
-# Main case dispatcher
 case "$1" in
     starman)
         starman

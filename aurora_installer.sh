@@ -43,8 +43,7 @@ sleep 3
 
  mkdir -p ~/opt/flatpak
  mkdir -p ~/opt/flatpak-deps
- mkdir -p ~/opt/aurora
- mkdir -p ~/opt/spaceman
+ mkdir -p ~/opt/bin
  
 export XDG_RUNTIME_DIR="$HOME/.xdg-runtime-dir"
 mkdir -p "$XDG_RUNTIME_DIR"

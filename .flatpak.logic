@@ -69,6 +69,20 @@ flatpak() {
   esac
 }
 
+aurora() {
+  local AURORA_SCRIPT="$HOME/opt/aurora"
+
+  "$AURORA_SCRIPT" "$@"
+
+  case "$1" in
+    display|cursor)
+      if [ -x "$AURORA_SCRIPT" ]; then
+        source <("$AURORA_SCRIPT" print-env)
+      fi
+      ;;
+  esac
+}
+
 EOF
 echo ""
 echo "${BOLD}${CYAN}Aurora has successfully finished setting up Flatpak! Reinitializing .bashrc to enable --user shortcut...${RESET}"

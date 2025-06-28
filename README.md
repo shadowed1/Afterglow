@@ -58,7 +58,7 @@ Commands with examples:
 `aurora_debug               # echo a list of paths that flatpak will use` <br>
 `aurora reinstall           # Redownload Aurora from Github` <br>
 `aurora uninstall           # Launch uninstaller` <br>
-
+`aurora shortcut            # Create desktop shortcuts` <br>
 `flatpak list               # Show list of installed apps` <br>
 `flatpak --help             # flatpak has a lot of commands!` <br>
 

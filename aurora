@@ -202,6 +202,7 @@ case "$1" in
         ;;
     shortcut)
         shortcut
+        ;;
     ""|status)
         if [[ -z "$ELECTRON_FORCE_DEVICE_SCALE_FACTOR" && -z "$XCURSOR_SIZE" ]]; then
             echo "${CYAN}ELECTRON_FORCE_DEVICE_SCALE_FACTOR and XCURSOR_SIZE remain default.${RESET}"

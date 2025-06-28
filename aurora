@@ -9,6 +9,8 @@ BOLD=$(tput bold)
 RESET=$(tput sgr0)
 DISPLAY_SCALING=""
 CURSOR_SIZE=""
+ICON_SIZE=256
+ICON_OUTPUT_BASE="$HOME/.local/share/icons/hicolor"
 
 if [ -f "$HOME/opt/.flatpak.env" ]; then
     . "$HOME/opt/.flatpak.env"
@@ -56,6 +58,33 @@ set_cursor_scaling() {
     echo "${GREEN}Cursor size set to $CURSOR_SIZE${RESET}" >&2
 }
 
+if ! flatpak info org.inkscape.Inkscape &>/dev/null; then
+    echo "${BLUE}Inkscape is required. Installing...${RESET}" >&2
+    flatpak install flathub org.inkscape.Inkscape
+    if [[ $? -ne 0 ]]; then
+        echo "${RED}Failed to install Inkscape.${RESET}" >&2
+        exit 1
+    fi
+fi
+
+flatpak list --columns=application | tail -n +1 | while read -r APPID; do
+    SVG_PATH="$HOME/.local/share/flatpak/app/$APPID/current/active/export/share/icons/hicolor/scalable/apps/$APPID.svg"
+
+    # Skip if no icon
+    if [ ! -f "$SVG_PATH" ]; then
+        echo "${RED}Missing SVG icon for $APPID${RESET}"
+        continue
+    fi
+
+    OUTDIR="$ICON_OUTPUT_BASE/${ICON_SIZE}x${ICON_SIZE}/apps"
+    mkdir -p "$OUTDIR"
+    OUTFILE="$OUTDIR/$APPID.png"
+
+    echo "${GREEN}Exporting $APPID to ${ICON_SIZE}x${ICON_SIZE}...${RESET}"
+    flatpak run org.inkscape.Inkscape --export-type="png" -w "$ICON_SIZE" -o "$OUTFILE" "$SVG_PATH"
+done
+
+
 show_help() {
     echo "${MAGENTA}${BOLD}"
     echo "Commands with examples:"
@@ -86,7 +115,8 @@ show_help() {
     echo ""
     echo "${RESET}${CYAN}${BOLD}Use ls /app/bin to help find the app in these situations.${RESET}${CYAN}"
     echo ""
-    echo "Brave browser might need to append '&' at the end to run:"
+    echo "Brave browser example:"
+    echo ""
     echo "flatpak search Brave"
     echo "flatpak install com.brave.Browser"
     echo "flatpak run --command=sh com.brave.Browser"

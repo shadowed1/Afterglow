@@ -46,7 +46,6 @@ starman() {
 show_help() {
     echo "${YELLOW}"
     echo "Commands with examples:"
-    echo "starman              #Downloads and extracts composefs archive to export path"
     echo "starman https://archlinux.org/packages/extra/x86_64/composefs/download ~/opt/flatpak-deps"
     echo "Default path if unset: ~/opt/bin"
     echo "${RESET}"

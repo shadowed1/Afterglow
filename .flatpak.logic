@@ -53,7 +53,7 @@ cat << 'EOF' >> "$HOME/.bashrc"
 # Flatpak --user logic
 flatpak() {
   case "$1" in
-    --help|-h|help|""|--version)
+    ""|--help|-h|help|--version)
       command flatpak "$@"
       ;;
     install)
@@ -62,11 +62,14 @@ flatpak() {
         echo "${RED}Installing com.valvesoftware.Steam is blocked to protect your Steam install.${RESET}"
         return 1
       fi
+      command flatpak --user "$@"
+      ;;
     *)
       command flatpak --user "$@"
       ;;
   esac
 }
+
 EOF
 echo ""
 echo "${BOLD}${CYAN}Aurora has successfully finished setting up Flatpak! Reinitializing .bashrc to enable --user shortcut...${RESET}"

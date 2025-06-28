@@ -20,9 +20,6 @@ fi
 
 echo "${MAGENTA}Aurora initializing Flatpak!${RESET}${BLUE}"
 
-
-
-
 if [ ! -S "$XDG_RUNTIME_DIR/dbus-session" ]; then
   dbus-daemon --session \
     --address="unix:path=$XDG_RUNTIME_DIR/dbus-session" \
@@ -50,7 +47,6 @@ flatpak --user update --appstream
 
 echo "${RESET}${CYAN}Flatpak ready!${RESET}"
 
-# Add Flatpak --user function to ~/.bashrc if missing:
 MARKER="# Flatpak --user logic"
 if ! grep -q "$MARKER" "$HOME/.bashrc"; then
 cat << 'EOF' >> "$HOME/.bashrc"
@@ -60,6 +56,12 @@ flatpak() {
     --help|-h|help|""|--version)
       command flatpak "$@"
       ;;
+    install)
+      # Prevent installing Flatpak Steam in Borealis
+      if [[ "$*" == *"com.valvesoftware.Steam"* ]]; then
+        echo "${RED}Installing com.valvesoftware.Steam is blocked to protect your Steam install.${RESET}"
+        return 1
+      fi
     *)
       command flatpak --user "$@"
       ;;

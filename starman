@@ -64,6 +64,11 @@ starman() {
     echo "${GREEN}Done.${RESET}"
 }
 
+reset_app_list() {
+    rm -f "$HOME/.starman_flatpak_cache"
+    echo "${YELLOW}Flatpak app list cache cleared.${RESET}"
+}
+
 
 show_help() {
     echo "${YELLOW}"
@@ -75,10 +80,12 @@ show_help() {
 }
 
 zenity_launcher() {
+    local ICON_SIZES=("256" "128")
+    local ICON_OUTPUT_BASE="$HOME/.local/share/icons/hicolor"
     local APP_LIST_FILE="$HOME/.starman_flatpak_cache"
     local MENU_ENTRIES=()
 
-    MENU_ENTRIES+=("Open File" "Select a file to open with file picker")
+    MENU_ENTRIES+=("Open File" "Browse or open a file")
     MENU_ENTRIES+=("Download Archive" "Download and extract .tar.* file (starman)")
 
     if [[ ! -f "$APP_LIST_FILE" ]]; then
@@ -87,14 +94,27 @@ zenity_launcher() {
 
     while IFS=$'\t' read -r APPID NAME; do
         [[ -z "$APPID" || "$APPID" == "Application" ]] && continue
-        MENU_ENTRIES+=("$APPID" "Launch $NAME via Flatpak")
+
+        local ICON_PATH=""
+        for SIZE in "${ICON_SIZES[@]}"; do
+            local TRY_ICON="$ICON_OUTPUT_BASE/${SIZE}x${SIZE}/apps/$APPID.png"
+            if [[ -f "$TRY_ICON" ]]; then
+                ICON_PATH="$TRY_ICON"
+                break
+            fi
+        done
+
+        if [[ -n "$ICON_PATH" ]]; then
+            MENU_ENTRIES+=("$APPID" "Launch $NAME via Flatpak")
+        fi
+
     done < "$APP_LIST_FILE"
 
     MENU_ENTRIES+=("Exit" "Close this menu")
 
     local CHOICE
     CHOICE=$(zenity --list --title="Starman App Launcher" \
-      --width=900 --height=700 \
+      --width=800 --height=600 \
       --column="Action" --column="Description" \
       "${MENU_ENTRIES[@]}")
 
@@ -117,6 +137,13 @@ zenity_launcher() {
     esac
 }
 
+
+reset_app_list() {
+    rm -f "$HOME/.starman_flatpak_cache"
+    echo "${YELLOW}Flatpak app list cache cleared.${RESET}"
+}
+
+
 case "$1" in
     starman)
         shift
@@ -127,6 +154,9 @@ case "$1" in
         ;;
     ""|status)
         zenity_launcher
+        ;;
+     reset)
+        reset_app_list
         ;;
     *)
         echo "${RED}Unknown command '$1'${RESET}"

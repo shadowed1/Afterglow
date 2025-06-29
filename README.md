@@ -78,10 +78,10 @@ Failed to connect to bus error it must be run like example below:
 Use ls /app/bin to help find the app in these situations.
 
 Brave browser might need to append '&' at the end to run:
-`flatpak search Brave`
-`flatpak install com.brave.Browser`
-`flatpak run --command=sh com.brave.Browser`
-`/app/brave/brave --no-sandbox --no-zygote --disable-gpu-sandbox --disable-features=UsePortal &`
+`flatpak search Brave` <br>
+`flatpak install com.brave.Browser` <br>
+`flatpak run --command=sh com.brave.Browser` <br>
+`/app/brave/brave --no-sandbox --no-zygote --disable-gpu-sandbox --disable-features=UsePortal &` <br>
 
 - Apps and their data are saved in ~/.local/share/flatpak and Aurora + Flatpak are stored in~/opt/.
 - --user argument is built-in for this Flatpak since we have no root access.
@@ -112,11 +112,11 @@ When running Brave:
 
  (optional) create a new folder under "MyFiles" (i.e. Steam_files)
  - Open Crosh (ctrl-alt-t) and type in: <br>
-`vmc share borealis [folder path from MyFiles]`
+`vmc share borealis [folder path from MyFiles]` <br>
 - in my example this would be:  <br>
-  `vmc share borealis Steam_files`
+  `vmc share borealis Steam_files` <br>
 - if you simply want to share the whole downloads folder do: <br>
-  `vmc share borealis Downloads`
+  `vmc share borealis Downloads` <br>
 
  ### How it works:
 
@@ -130,13 +130,13 @@ When running Brave:
 - Currently lacking Crostini's integration with the shelf
 
 - To do:
-`Default web browser support, proper d-bus implementation, steam shortcuts`
+`Default web browser support, proper d-bus implementation, steam shortcuts` <br>
 
 ### Changelog:
 0.01: `Release` <br>
 0.02: `Removed .bashrc file and added append capability. Added check to make sure not to install anywhere but Borealis.
 Added uninstall and reinstall commands. Thanks to Saragon for the suggestions and teachimg me more about .bashrc.` <br>
-0.03: `Now using .borealisrc instead of .bashrc for better compatibility.` 
+0.03: `Now using .borealisrc instead of .bashrc for better compatibility.` <br>
 
 
 ### Acknowledgments

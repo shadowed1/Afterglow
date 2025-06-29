@@ -75,35 +75,47 @@ show_help() {
 }
 
 zenity_launcher() {
+    local APP_LIST_FILE="$HOME/.starman_flatpak_cache"
+    local MENU_ENTRIES=()
+
+    MENU_ENTRIES+=("Open File" "Select a file to open with file picker")
+    MENU_ENTRIES+=("Download Archive" "Download and extract .tar.* file (starman)")
+
+    if [[ ! -f "$APP_LIST_FILE" ]]; then
+        flatpak --user list --columns=application,name | tail -n +1 | sort -u > "$APP_LIST_FILE"
+    fi
+
+    while IFS=$'\t' read -r APPID NAME; do
+        [[ -z "$APPID" || "$APPID" == "Application" ]] && continue
+        MENU_ENTRIES+=("$APPID" "Launch $NAME via Flatpak")
+    done < "$APP_LIST_FILE"
+
+    MENU_ENTRIES+=("Exit" "Close this menu")
+
     local CHOICE
-    CHOICE=$(zenity --list --title="Starman Item List" \
+    CHOICE=$(zenity --list --title="Starman App Launcher" \
       --width=900 --height=700 \
       --column="Action" --column="Description" \
-      "Open File" "Select a file to open with file picker" \
-      "Inkscape" "Launch Inkscape via Flatpak" \
-      "Paste in a download link for a tar file and decompress it" "Append the extraction path at the end - Default extraction path is ~/opt/bin/" \
-      "Exit" "Close this menu")
+      "${MENU_ENTRIES[@]}")
 
     case "$CHOICE" in
-      "Open File")
-        zenity --file-selection --title="Pick a file"
-        ;;
-        "Download a .tar.zst file")
-            FILE_URL=$(zenity --entry --title="Download .tar.zst" --text="Enter the URL of the .tar.zst file:")
-            if [ -n "$FILE_URL" ]; then
-              starman "$FILE_URL"
+        "Open File")
+            zenity --file-selection --title="Pick a file"
+            ;;
+        "Download Archive")
+            FILE_URL=$(zenity --entry --title="Download Archive" --text="Enter the URL of the .tar archive:")
+            if [[ -n "$FILE_URL" ]]; then
+                starman "$FILE_URL"
             fi
-        ;;
-      "Inkscape")
-        flatpak --user run org.inkscape.Inkscape &
-        ;;
-      "Exit" | *)
-        exit 0
-        ;;
+            ;;
+        "Exit"|"")
+            exit 0
+            ;;
+        *)
+            flatpak --user run "$CHOICE" &
+            ;;
     esac
 }
-
-# MAIN LOGIC
 
 case "$1" in
     starman)

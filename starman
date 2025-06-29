@@ -32,12 +32,38 @@ starman() {
     fi
 
     mkdir -p "$EXPORT_PATH"
-    echo "${YELLOW}Extracting to: $EXPORT_PATH"
-    tar --use-compress-program=unzstd -xvf "$FILE" -C "$EXPORT_PATH"
+    echo "${YELLOW}Extracting to: $EXPORT_PATH${RESET}"
+
+    local ext="${FILE##*.}"
+    local decompress_cmd=""
+
+    case "$FILE" in
+        *.tar.gz|*.tgz)     decompress_cmd="gzip -d" ;;
+        *.tar.bz2|*.tbz2)   decompress_cmd="bzip2 -d" ;;
+        *.tar.xz|*.txz)     decompress_cmd="xz -d" ;;
+        *.tar.zst|*.tzst)   decompress_cmd="unzstd" ;;
+        *.tar.lz4)          decompress_cmd="lz4 -d" ;;
+        *.tar.lzma)         decompress_cmd="lzma -d" ;;
+        *.tar.lz)           decompress_cmd="lzip -d" ;;
+        *.tar.Z)            decompress_cmd="uncompress" ;;
+        *.tar)              decompress_cmd="" ;;  # No compression
+        *)
+            echo "${RED}Unknown compression format: $FILE${RESET}" >&2
+            return 1
+            ;;
+    esac
+
+    if [[ -n "$decompress_cmd" ]]; then
+        tar --use-compress-program="$decompress_cmd" -xvf "$FILE" -C "$EXPORT_PATH"
+    else
+        tar -xvf "$FILE" -C "$EXPORT_PATH"
+    fi
+
     echo "Cleaning up..."
     rm -f "$FILE"
-    echo "Done.${RESET}"
+    echo "${GREEN}Done.${RESET}"
 }
+
 
 show_help() {
     echo "${YELLOW}"
@@ -50,12 +76,12 @@ show_help() {
 
 zenity_launcher() {
     local CHOICE
-    CHOICE=$(zenity --list --title="Aurora Desktop" \
+    CHOICE=$(zenity --list --title="Starman Item List" \
       --width=900 --height=700 \
       --column="Action" --column="Description" \
       "Open File" "Select a file to open with file picker" \
       "Inkscape" "Launch Inkscape via Flatpak" \
-      "Download a .tar.zst file" \
+      "Paste in a download link for a tar file and decompress it" "Append the extraction path at the end - Default extraction path is ~/opt/bin/" \
       "Exit" "Close this menu")
 
     case "$CHOICE" in

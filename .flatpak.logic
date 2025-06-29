@@ -70,7 +70,7 @@ flatpak() {
 }
 
 aurora() {
-  local AURORA_SCRIPT="$HOME/opt/aurora"
+  local AURORA_SCRIPT="$HOME/opt/bin/aurora"
 
   "$AURORA_SCRIPT" "$@"
 

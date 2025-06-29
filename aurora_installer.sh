@@ -154,22 +154,19 @@ else
   echo "dbus socket not found."
 fi
 
-if [ ! -f "$HOME/.bashrc" ]; then
-  touch "$HOME/.bashrc"
-fi
-if ! grep -q '.flatpak.env' "$HOME/.bashrc"; then
-  echo '[ -f "$HOME/opt/.flatpak.env" ] && . "$HOME/opt/.flatpak.env"' >> "$HOME/.bashrc"
-fi
+[ -f "$HOME/.bashrc" ] || touch "$HOME/.bashrc"
 
+sed -i '/\.flatpak\.env/d' "$HOME/.bashrc"
+sed -i '/\.flatpak\.logic/d' "$HOME/.bashrc"
+
+echo '[ -f "$HOME/opt/.flatpak.env" ] && . "$HOME/opt/.flatpak.env"' >> "$HOME/.bashrc"
+echo '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' >> "$HOME/.bashrc"
 
 if [ ! -f "$HOME/opt/flatpak-deps/usr/lib/libostree-1.so.1" ]; then
   echo "libostree-1.so.1 missing from deps!"
   exit 1
 fi
 
-if ! grep -Fxq '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' "$HOME/.bashrc"; then
-  echo '[ -f "$HOME/opt/.flatpak.logic" ] && . "$HOME/opt/.flatpak.logic"' >> "$HOME/.bashrc"
-fi
 
 "$HOME/opt/flatpak/usr/bin/flatpak" --version
 sleep 3

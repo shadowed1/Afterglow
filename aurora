@@ -77,7 +77,6 @@ shortcut() {
         fi
 
         if [[ -z "$ICON" ]]; then
-            # Suppress not found messages
             continue
         fi
 

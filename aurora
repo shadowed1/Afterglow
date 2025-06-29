@@ -69,15 +69,15 @@ shortcut() {
     flatpak --user list --columns=application | tail -n +1 | while read -r APPID; do
         BASE_PATH="$HOME/.local/share/flatpak/app/$APPID/current/active/export/share/icons/hicolor"
         ICON=$(find "$BASE_PATH" -mindepth 3 -maxdepth 3 \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.svg" \) \
-               \( -ipath "*/256x256/*" -o -ipath "*/128x128/*" \) | sort | grep -Ei '256x256.*\.(png|jpg|jpeg|svg)$' | head -n1)
+               \( -ipath "*/256x256/*" -o -ipath "*/128x128/*" \) 2>/dev/null | sort | grep -Ei '256x256.*\.(png|jpg|jpeg|svg)$' | head -n1)
 
         if [[ -z "$ICON" ]]; then
             ICON=$(find "$BASE_PATH" -mindepth 3 -maxdepth 3 \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.svg" \) \
-                   -ipath "*/128x128/*" | head -n1)
+                   -ipath "*/128x128/*" 2>/dev/null | head -n1)
         fi
 
         if [[ -z "$ICON" ]]; then
-            echo "${RED}No suitable icon found for $APPID${RESET}"
+            # Suppress not found messages
             continue
         fi
 
@@ -98,7 +98,6 @@ shortcut() {
                 flatpak --user run org.inkscape.Inkscape --export-type="png" -w "$ICON_SIZE" -o "$OUTFILE" "$ICON"
                 ;;
             *)
-                echo "${YELLOW}Unknown format: $ICON${RESET}"
                 continue
                 ;;
         esac
@@ -106,7 +105,6 @@ shortcut() {
         echo "${CYAN}Icon saved to $OUTFILE${RESET}"
     done
 }
-
 show_help() {
     echo "${MAGENTA}${BOLD}"
     echo "Commands with examples:"

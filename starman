@@ -50,18 +50,25 @@ show_help() {
 zenity_launcher() {
     local CHOICE
     CHOICE=$(zenity --list --title="Aurora Desktop" \
-      --width=400 --height=300 \
+      --width=900 --height=700 \
       --column="Action" --column="Description" \
       "Open File" "Select a file to open with file picker" \
       "Inkscape" "Launch Inkscape via Flatpak" \
+      "Download a .tar.zst file" \
       "Exit" "Close this menu")
 
     case "$CHOICE" in
       "Open File")
         zenity --file-selection --title="Pick a file"
         ;;
+        "Download a .tar.zst file")
+            FILE_URL=$(zenity --entry --title="Download .tar.zst" --text="Enter the URL of the .tar.zst file:")
+            if [ -n "$FILE_URL" ]; then
+              starman "$FILE_URL"
+            fi
+        ;;
       "Inkscape")
-        flatpak run org.inkscape.Inkscape &
+        flatpak --user run org.inkscape.Inkscape &
         ;;
       "Exit" | *)
         exit 0

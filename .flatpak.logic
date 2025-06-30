@@ -85,8 +85,11 @@ aurora() {
 
 EOF
 echo ""
-echo "${BOLD}${CYAN}Aurora has successfully finished setting up Flatpak! Reinitializing .bashrc to enable --user shortcut...${RESET}"
-sleep 2
+echo "${BOLD}${CYAN}Aurora has successfully finished setting up Flatpak! Reinitializing .bashrc to enable --user shortcut"
+sleep 1
+echo "."
+sleep 1
+echo ".${RESET}"
 echo ""
 source ~/.bashrc
 fi

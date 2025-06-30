@@ -28,11 +28,11 @@
 
 ### Features:
 
+- Fantastic hardware acceleration for all apps; even unsupported web browsers.
 - Steam can be closed entirely as long as an app is running.
 - Borealis shell tabs automatically initiate Flatpak support.
-- Aurora can tweak display scaling and cursor size. 
-- Fantastic hardware acceleration for all apps; even unsupported web browsers.
-- Can change default apps, generate shortcuts and icons, and download and extract tar files.
+- Tweak display scaling and cursor size. 
+- Change default apps, generate shortcuts and icons, and download + extract tar files.
 - Uninstaller is able to clean up after itself.
 
 <br><br>

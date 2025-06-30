@@ -48,8 +48,11 @@ Minecraft Java with Prism Launcher @ 2160p:
 <br><br>
 
 
-### How to use:
-Commands with examples:
+### How to use: 
+
+<br>
+
+Commands with examples: <br>
 
 `aurora                     # Show current display and cursor values` <br>
 `source aurora display 1.0  # Set display scaling factor (0.25 - 4.0)` <br>
@@ -61,17 +64,17 @@ Commands with examples:
 `aurora shortcut            # Create desktop shortcuts` <br> <br>
 `starman                    # Open quick access menu` <br> 
 `starman default            # Menu to set default apps` <br>
-`starman reset              # Remove app entries in quick access menu` <br>
+`starman reset              # Remove app entries in quick access menu` <br> <br>
 `flatpak list               # Show list of installed apps` <br> <br>
 `flatpak --help             # flatpak has a lot of commands!` <br>
 
-Flatpak example:
+Flatpak example: <br>
 
-`flatpak search Discord
-`flatpak install com.discordapp.Discord
-`flatpak run com.discordapp.Discord
+`flatpak search Discord` <br>
+`flatpak install com.discordapp.Discord` <br>
+`flatpak run com.discordapp.Discord` <br>
 
-Failed to connect to bus error it must be run like example below:
+Failed to connect to bus error it must be run like example below: <br>
 
 `Visual Studio:` <br>
 `flatpak search visualstudio` <br>

@@ -101,17 +101,27 @@ shortcut() {
                 ;;
         esac
 
-        echo "${CYAN}Icon saved to $OUTFILE${RESET}"
+        BIN_DIR="$HOME/opt/bin"
+        BIN_FILE="$BIN_DIR/${APPID##*.}.sh"
+        mkdir -p "$BIN_DIR"
+
+        cat > "$BIN_FILE" <<EOF
+#!/bin/bash
+source "\$HOME/.bashrc"
+flatpak run $APPID
+EOF
+
+        chmod +x "$BIN_FILE"
+        echo "${CYAN}Launcher script saved to $BIN_FILE${RESET}"
 
         DESKTOP_DIR="$HOME/.local/share/applications"
         DESKTOP_FILE="$DESKTOP_DIR/$APPID.desktop"
         mkdir -p "$DESKTOP_DIR"
 
-        echo "${GREEN}Creating .desktop shortcut for $APPID...${RESET}"
         cat > "$DESKTOP_FILE" <<EOF
 [Desktop Entry]
-Name=$APPID
-Exec=bash -c "source ~/.bashrc; flatpak run $APPID >/dev/null &"
+Name=${APPID##*.}
+Exec=$BIN_FILE
 Icon=$APPID
 Terminal=false
 Type=Application

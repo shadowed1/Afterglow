@@ -33,17 +33,19 @@
 - Borealis shell tabs automatically initiate Flatpak support.
 - Aurora can tweak display scaling and cursor size. 
 - Fantastic hardware acceleration for all apps; even unsupported web browsers.
-- Can change default apps, generate shortcuts and icons, and download and extract tar files. 
+- Can change default apps, generate shortcuts and icons, and download and extract tar files.
+- Uninstaller is able to clean up after itself.
+
+<br><br>
 
 
-
-- Minecraft Java with Prism Launcher @ 2160p:
-
+Minecraft Java with Prism Launcher @ 2160p:
+<br>
 <p align="center">
   <img src="https://i.imgur.com/SKNLuZb.png" alt="logo" width="5000" />
 </p>  
 
-
+<br><br>
 
 
 ### How to use:
@@ -63,7 +65,7 @@ Commands with examples:
 `flatpak list               # Show list of installed apps` <br>
 `flatpak --help             # flatpak has a lot of commands!` <br>
 
-NORMAL FLATPAK EXAMPLE:
+Flatpak example:
 
 `flatpak search Discord
 `flatpak install com.discordapp.Discord
@@ -71,18 +73,22 @@ NORMAL FLATPAK EXAMPLE:
 
 Failed to connect to bus error it must be run like example below:
 
+`Visual Studio:` <br>
 `flatpak search visualstudio` <br>
 `flatpak install com.visualstudio.code` <br>
 `flatpak run --command=sh com.visualstudio.code` <br>
 `/app/bin/code --no-sandbox --no-zygote --disable-gpu-sandbox --disable-features=UsePortal` <br>
-
-Use ls /app/bin to help find the app in these situations.
-
-Brave browser might need to append '&' at the end to run:
+<br>
+`Brave browser:` <br>
 `flatpak search Brave` <br>
 `flatpak install com.brave.Browser` <br>
 `flatpak run --command=sh com.brave.Browser` <br>
 `/app/brave/brave --no-sandbox --no-zygote --disable-gpu-sandbox --disable-features=UsePortal &` <br>
+
+
+Use ls /app/bin to help find the app in these situations.
+
+<br>
 
 - Apps and their data are saved in ~/.local/share/flatpak and Aurora + Flatpak are stored in~/opt/.
 - --user argument is built-in for this Flatpak since we have no root access.

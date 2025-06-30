@@ -111,7 +111,7 @@ shortcut() {
         cat > "$DESKTOP_FILE" <<EOF
 [Desktop Entry]
 Name=$APPID
-Exec=bash -c '\''source ~/.bashrc; flatpak run $APPID >/dev/null &'\'' 
+Exec=bash -c "source ~/.bashrc; flatpak run $APPID >/dev/null &"
 Icon=$APPID
 Terminal=false
 Type=Application

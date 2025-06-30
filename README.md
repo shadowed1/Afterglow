@@ -59,6 +59,9 @@ Commands with examples:
 `aurora reinstall           # Redownload Aurora from Github` <br>
 `aurora uninstall           # Launch uninstaller` <br>
 `aurora shortcut            # Create desktop shortcuts` <br>
+`starman                    # Open quick access menu` <br> 
+`starman default            # Menu to set default apps` <br>
+`starman reset              # Remove app entries in quick access menu` <br>
 `flatpak list               # Show list of installed apps` <br>
 `flatpak --help             # flatpak has a lot of commands!` <br>
 

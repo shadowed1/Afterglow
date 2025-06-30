@@ -65,7 +65,7 @@ Commands with examples: <br>
 `starman                    # Open quick access menu` <br> 
 `starman default            # Menu to set default apps` <br>
 `starman reset              # Remove app entries in quick access menu` <br> <br>
-`flatpak list               # Show list of installed apps` <br> <br>
+`flatpak list               # Show list of installed apps` <br>
 `flatpak --help             # flatpak has a lot of commands!` <br>
 
 Flatpak example: <br>

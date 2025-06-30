@@ -267,7 +267,7 @@ case "$1" in
             CURRENT_VER=$(cat "$HOME/opt/bin/version")
             CURRENT_VER_NO=$(echo "$CURRENT_VER" | sed -e 's/VERSION=//' -e 's/"//g' -e 's/\.//g')
         
-            LATEST_VER=$(curl -Ls https://raw.githubusercontent.com/shadowed1/Aurora/refs/heads/beta/version)
+            LATEST_VER=$(curl -Ls https://raw.githubusercontent.com/shadowed1/Aurora/beta/version)
             LATEST_VER_NO=$(echo "$LATEST_VER" | sed -e 's/VERSION=//' -e 's/"//g' -e 's/\.//g')
         
             if [[ "$CURRENT_VER_NO" -lt "$LATEST_VER_NO" ]]; then

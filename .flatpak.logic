@@ -83,6 +83,9 @@ aurora() {
   esac
 }
 
+flatpak --user list --columns=application,name | tail -n +1 | sort -u > "$HOME/.starman_flatpak_cache"
+
+
 EOF
 echo ""
 echo "${BOLD}${CYAN}Aurora has successfully finished setting up Flatpak! Reinitializing .bashrc to enable --user shortcut"

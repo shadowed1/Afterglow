@@ -65,6 +65,7 @@ export DBUS_SESSION_BUS_ADDRESS=$(cat "$XDG_RUNTIME_DIR/dbus-session.address")
 mkdir -p "$XDG_RUNTIME_DIR/doc/portal"
 echo 3 > "$XDG_RUNTIME_DIR/doc/portal/version"
 
+
 download_and_extract()
 {
     local url="$1"
@@ -150,7 +151,7 @@ chmod +x ~/opt/bin/aurora
 chmod +x ~/opt/bin/starman
 chmod +x ~/opt/usr/bin/fastfetch
 chmod +x ~/opt/usr/nano
-
+echo > $HOME/.starman_flatpak_cache
 
 export LD_LIBRARY_PATH="$HOME/opt/flatpak-deps/usr/lib:$LD_LIBRARY_PATH"
 

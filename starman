@@ -12,6 +12,10 @@ if [ -f "$HOME/opt/.flatpak.env" ]; then
     . "$HOME/opt/.flatpak.env"
 fi
 
+update_app_list_cache() {
+    flatpak --user list --columns=application,name | tail -n +1 | sort -u > "$HOME/.starman_flatpak_cache"
+}
+
 starman() {
     local URL="$1"
 
@@ -64,10 +68,6 @@ starman() {
     echo "${GREEN}Done.${RESET}"
 }
 
-reset_app_list() {
-    rm -f "$HOME/.starman_flatpak_cache"
-    echo "${YELLOW}Flatpak app list cache cleared.${RESET}"
-}
 
 
 show_help() {
@@ -89,9 +89,7 @@ zenity_launcher() {
     MENU_ENTRIES+=("download_archive" "Download Archive - Download and extract .tar.* file (starman)")
 
 
-    if [[ ! -f "$APP_LIST_FILE" ]]; then
-        flatpak --user list --columns=application,name | tail -n +1 | sort -u > "$APP_LIST_FILE"
-    fi
+    update_app_list_cache
 
     while IFS=$'\t' read -r APPID NAME; do
         [[ -z "$APPID" || "$APPID" == "Application" ]] && continue
@@ -146,14 +144,10 @@ reset_app_list() {
 
 set_default_app() {
     local APP_LIST_FILE="$HOME/.starman_flatpak_cache"
-    # Refresh app list if missing
-    if [[ ! -f "$APP_LIST_FILE" ]]; then
-        flatpak --user list --columns=application,name | tail -n +1 | sort -u > "$APP_LIST_FILE"
-    fi
+    update_app_list_cache
 
-    # Read apps into arrays with numbering
-    mapfile -t APPS < <(cut -f1 "$APP_LIST_FILE")   # APPIDs
-    mapfile -t NAMES < <(cut -f2 "$APP_LIST_FILE")  # App names
+    mapfile -t APPS < <(cut -f1 "$APP_LIST_FILE")
+    mapfile -t NAMES < <(cut -f2 "$APP_LIST_FILE")
 
     echo "Installed Flatpak apps:"
     for i in "${!APPS[@]}"; do

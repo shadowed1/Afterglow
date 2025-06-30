@@ -31,14 +31,12 @@
 
 - Steam can be closed entirely as long as an app is running.
 - Borealis shell tabs automatically initiate Flatpak support.
-  
-<p align="center">
-  <img src="https://i.imgur.com/JaW6d3P.png" alt="logo" width="5000" />
-</p>  
-
 - Aurora can tweak display scaling and cursor size. 
-- Fantastic hardware acceleration for all apps; even unsupported web browsers
-- Built-in GPU acceleration allows for longer battery life vs software rendering.
+- Fantastic hardware acceleration for all apps; even unsupported web browsers.
+- Can change default apps, generate shortcuts and icons, and download and extract tar files. 
+
+
+
 - Minecraft Java with Prism Launcher @ 2160p:
 
 <p align="center">

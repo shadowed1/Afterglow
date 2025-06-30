@@ -102,8 +102,27 @@ shortcut() {
         esac
 
         echo "${CYAN}Icon saved to $OUTFILE${RESET}"
+
+        DESKTOP_DIR="$HOME/.local/share/applications"
+        DESKTOP_FILE="$DESKTOP_DIR/$APPID.desktop"
+        mkdir -p "$DESKTOP_DIR"
+
+        echo "${GREEN}Creating .desktop shortcut for $APPID...${RESET}"
+        cat > "$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Name=$APPID
+Exec=bash -c 'source ~/.bashrc; flatpak run $APPID >/dev/null &'
+Icon=$APPID
+Terminal=false
+Type=Application
+Categories=Utility;
+EOF
+
+        chmod +x "$DESKTOP_FILE"
+        echo "${CYAN}Shortcut saved to $DESKTOP_FILE${RESET}"
     done
 }
+
 show_help() {
     echo "${MAGENTA}${BOLD}"
     echo "Commands with examples:"

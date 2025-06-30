@@ -151,7 +151,7 @@ chmod +x ~/opt/bin/aurora
 chmod +x ~/opt/bin/starman
 chmod +x ~/opt/usr/bin/fastfetch
 chmod +x ~/opt/usr/nano
-echo > $HOME/.starman_flatpak_cache
+touch /home/chronos/.starman_flatpak_cache
 
 export LD_LIBRARY_PATH="$HOME/opt/flatpak-deps/usr/lib:$LD_LIBRARY_PATH"
 

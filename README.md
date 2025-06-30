@@ -8,9 +8,8 @@
 ### Requirements: 
 
 - ChromeOS
-- Steam installed and open
 - Internet connection
-- Logging into Steam is NOT required.  
+- Steam installed and open (log in not required)
 <br>
 <br>
 

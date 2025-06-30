@@ -50,7 +50,7 @@ starman() {
         *.tar.lzma)         decompress_cmd="lzma -d" ;;
         *.tar.lz)           decompress_cmd="lzip -d" ;;
         *.tar.Z)            decompress_cmd="uncompress" ;;
-        *.tar)              decompress_cmd="" ;;  # No compression
+        *.tar)              decompress_cmd="" ;;
         *)
             echo "${RED}Unknown compression format: $FILE${RESET}" >&2
             return 1

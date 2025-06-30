@@ -144,6 +144,71 @@ reset_app_list() {
     echo "${YELLOW}Flatpak app list cache cleared.${RESET}"
 }
 
+set_default_app() {
+    local APP_LIST_FILE="$HOME/.starman_flatpak_cache"
+    # Refresh app list if missing
+    if [[ ! -f "$APP_LIST_FILE" ]]; then
+        flatpak --user list --columns=application,name | tail -n +1 | sort -u > "$APP_LIST_FILE"
+    fi
+
+    # Read apps into arrays with numbering
+    mapfile -t APPS < <(cut -f1 "$APP_LIST_FILE")   # APPIDs
+    mapfile -t NAMES < <(cut -f2 "$APP_LIST_FILE")  # App names
+
+    echo "Installed Flatpak apps:"
+    for i in "${!APPS[@]}"; do
+        echo "[$i] ${NAMES[i]} (${APPS[i]})"
+    done
+
+    echo
+    read -rp "Enter the number of the app to set as default: " appnum
+    if ! [[ "$appnum" =~ ^[0-9]+$ ]] || (( appnum < 0 || appnum >= ${#APPS[@]} )); then
+        echo "Invalid selection."
+        return 1
+    fi
+
+    local selected_app="${APPS[appnum]}"
+    local desktop_file="${selected_app}.desktop"
+    echo "Selected app: ${NAMES[appnum]} ($desktop_file)"
+
+    echo ""
+    echo "Enter the extension to assign; separate by commas."
+    echo "Examples: .html, .pdf, mp3, http, https"
+    read -rp "Extensions/schemes: " extlist
+
+    IFS=',' read -ra extensions <<< "$extlist"
+
+    for ext in "${extensions[@]}"; do
+        ext="${ext#"${ext%%[![:space:]]*}"}"
+        ext="${ext%"${ext##*[![:space:]]}"}"
+
+        ext="${ext#.}"
+
+        if [[ -z "$ext" ]]; then
+            echo "Skipping empty extension"
+            continue
+        fi
+
+        local mime_type=""
+        case "$ext" in
+            http|https|ftp|mailto)
+                mime_type="x-scheme-handler/$ext"
+                ;;
+            *)
+                mime_type=$(xdg-mime query filetype "file.$ext")
+                if [[ -z "$mime_type" ]]; then
+                    echo "Warning: Could not determine MIME type for .$ext, skipping."
+                    continue
+                fi
+                ;;
+        esac
+
+        echo "Setting default for $ext ($mime_type) to $desktop_file"
+        xdg-mime default "$desktop_file" "$mime_type"
+    done
+
+    echo "Done."
+}
 
 case "$1" in
     starman)
@@ -152,6 +217,9 @@ case "$1" in
         ;;
     --h|-h|help)
         show_help
+        ;;
+    default)
+        set_default_app
         ;;
     ""|status)
         zenity_launcher

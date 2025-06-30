@@ -119,11 +119,11 @@ zenity_launcher() {
       "${MENU_ENTRIES[@]}")
 
     case "$CHOICE" in
-        "Open File")
-            zenity --file-selection --title="Pick a file"
+        "File Manager")
+            zenity --file-selection --title="Browse"
             ;;
         "Download Archive")
-            FILE_URL=$(zenity --entry --title="Download Archive" --text="Enter the URL of the .tar archive:")
+            FILE_URL=$(zenity --entry --title="Starman Archive Downloader:" --text="Enter the URL of the .tar archive and your path of choice:")
             if [[ -n "$FILE_URL" ]]; then
                 starman "$FILE_URL"
             fi

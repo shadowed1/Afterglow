@@ -85,8 +85,9 @@ zenity_launcher() {
     local APP_LIST_FILE="$HOME/.starman_flatpak_cache"
     local MENU_ENTRIES=()
 
-    MENU_ENTRIES+=("Open File" "Browse or open a file")
-    MENU_ENTRIES+=("Download Archive" "Download and extract .tar.* file (starman)")
+    MENU_ENTRIES+=("open_file" "Open File - Browse or open a file")
+    MENU_ENTRIES+=("download_archive" "Download Archive - Download and extract .tar.* file (starman)")
+
 
     if [[ ! -f "$APP_LIST_FILE" ]]; then
         flatpak --user list --columns=application,name | tail -n +1 | sort -u > "$APP_LIST_FILE"
@@ -117,24 +118,24 @@ zenity_launcher() {
       --width=800 --height=600 \
       --column="Action" --column="Description" \
       "${MENU_ENTRIES[@]}")
-
-    case "$CHOICE" in
-        "File Manager")
+       case "$CHOICE" in
+        open_file)
             zenity --file-selection --title="Browse"
             ;;
-        "Download Archive")
+        download_archive)
             FILE_URL=$(zenity --entry --title="Starman Archive Downloader:" --text="Enter the URL of the .tar archive and your path of choice:")
             if [[ -n "$FILE_URL" ]]; then
                 starman "$FILE_URL"
             fi
             ;;
-        "Exit"|"")
+        Exit|"")
             exit 0
             ;;
         *)
             flatpak --user run "$CHOICE" &
             ;;
     esac
+
 }
 
 

@@ -215,6 +215,10 @@ case "$1" in
     default)
         set_default_app
         ;;
+    refresh)
+        update_app_list_cache
+        echo "${GREEN}Starman app list refreshed.${RESET}"
+        ;;
     ""|status)
         zenity_launcher
         ;;

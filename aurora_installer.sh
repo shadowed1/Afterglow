@@ -131,14 +131,14 @@ download_and_extract "$URL" "$HOME/opt/flatpak-deps"
 
 # Fastfetch
 URL="https://archlinux.org/packages/extra/x86_64/fastfetch/download"
-download_and_extract "$URL" "$HOME/opt/bin"
+download_and_extract "$URL" "$HOME/opt/"
 
 URL="https://archlinux.org/packages/extra/x86_64/yyjson/download"
-download_and_extract "$URL" "$HOME/opt/bin"
+download_and_extract "$URL" "$HOME/opt/"
 
 # Nano
 URL="https://archlinux.org/packages/core/x86_64/nano/download"
-download_and_extract "$URL" "$HOME/opt/bin"
+download_and_extract "$URL" "$HOME/opt/"
 
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.logic -o ~/opt/.flatpak.logic
 curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/aurora -o ~/opt/bin/aurora
@@ -148,8 +148,8 @@ curl -L https://raw.githubusercontent.com/shadowed1/Aurora/beta/.flatpak.env -o 
 
 chmod +x ~/opt/bin/aurora
 chmod +x ~/opt/bin/starman
-chmod +x ~/opt/bin/usr/bin/fastfetch
-chmod +x ~/opt/bin/usr/bin/nano
+chmod +x ~/opt/usr/bin/fastfetch
+chmod +x ~/opt/usr/nano
 
 
 export LD_LIBRARY_PATH="$HOME/opt/flatpak-deps/usr/lib:$LD_LIBRARY_PATH"

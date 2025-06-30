@@ -222,7 +222,6 @@ aurora_uninstall() {
             done
 
             if grep -q "# Flatpak --user logic" "$HOME/.bashrc"; then
-                # Delete from marker to the closing "}" of the function
                 sed -i '/# Flatpak --user logic/,/^}/d' "$HOME/.bashrc"
                 echo "${CYAN}Removed Flatpak function from .bashrc${RESET}"
             fi
